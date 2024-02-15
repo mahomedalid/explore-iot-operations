@@ -277,9 +277,12 @@ func evalBasicLit(lit *ast.BasicLit) (any, error) {
 	case token.FLOAT:
 		return strconv.ParseFloat(lit.Value, 64)
 	case token.STRING:
+		if lit.Value == "true" {
+			return true, nil
+		} else if lit.Value == "false" {
+			return false, nil
+		}
 		return strings.Trim(lit.Value, "\""), nil
-	case token.BOOL:
-		return strconv.ParseBool(lit.Value), nil
 	default:
 		return 0, ErrCannotEvaluateLiteral
 	}
