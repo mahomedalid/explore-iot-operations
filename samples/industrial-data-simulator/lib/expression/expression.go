@@ -278,6 +278,8 @@ func evalBasicLit(lit *ast.BasicLit) (any, error) {
 		return strconv.ParseFloat(lit.Value, 64)
 	case token.STRING:
 		return strings.Trim(lit.Value, "\""), nil
+	case token.BOOL:
+		return strconv.ParseBool(lit.Value), nil
 	default:
 		return 0, ErrCannotEvaluateLiteral
 	}
